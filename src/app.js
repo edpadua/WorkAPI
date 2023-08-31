@@ -50,10 +50,7 @@ const professionals = [
 
   
 
-  app.post('/professionals', (req, res) => {
-    professionals.push(req.body);
-    res.status(201).send('Profissional foi cadastrado com sucesso')
-  })
+  
 
 
   app.put('/professionals/:id', (req, res) => {

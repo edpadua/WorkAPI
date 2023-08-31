@@ -5,6 +5,10 @@ import professionalsController from "../controllers/professionalsController.js"
 const router = express.Router();
 
 router
-  .get("/professionals", professionalsController.listarProfessionals);
+  .get("/professionals", professionalsController.listarProfessionals)
+  .get("/professionals/:id", professionalsController.listarProfessionalPorId)
+  .post("/professionals", professionalsController.cadastrarProfessional)
+  .put("/professionals/:id", professionalsController.atualizarProfessional)
+  .delete("/professionals/:id", professionalsController.excluirProfessional)
 
 export default router;
