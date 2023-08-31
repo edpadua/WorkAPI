@@ -1,5 +1,7 @@
 import express from "express";
 import professionals from "./professionalRoutes.js"
+import companies from "./companyRoutes.js"
+import positions from "./positionRoutes.js"
 
 
 const routes = (app) => {
@@ -9,7 +11,9 @@ const routes = (app) => {
 
     app.use(
         express.json(),
-        professionals
+        professionals,
+        companies,
+        positions
       )
   }
 
