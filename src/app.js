@@ -1,15 +1,24 @@
 import express from "express";
 
+import db from  "./config/dbConnect.js";
+
+import professionals from "./models/Professional.js"
+
+import routes from "./routes/index.js";
+
+db.on("error", console.log.bind(console, 'Erro de conexão'))
+db.once("open", () => {
+  console.log('conexão com o banco feita com sucesso')
+})
+
 const app = express();
 
 app.use(express.json());
 
-const livros = [
-    {id: 1, "titulo": "Senhor dos Aneis"},
-    {id: 2, "titulo": "O Hobbit"}
-  ]
+routes(app);
 
 
+{/** 
 const professionals = [
     {
       "name": "Antônio",
@@ -28,20 +37,18 @@ const professionals = [
       "id": 2
     }
   ]
-
+**/}
 
   function buscaProfessional(id) {
     return professionals.findIndex(professional => professional.id == id)
   }
 
-  app.get('/', (req, res) => {
-    res.status(200).send('WorkSpace');
-  }) 
+  
 
 
-  app.get('/professionals', (req, res) => {
-    res.status(200).json(professionals)
-  })
+ 
+
+  
 
   app.post('/professionals', (req, res) => {
     professionals.push(req.body);
