@@ -1,5 +1,11 @@
 import professionals from "../models/Professional.js";
 
+import jwt from "jsonwebtoken";
+
+import 'dotenv/config';
+
+import bcrypt from 'bcryptjs';
+
 class ProfessionalController {
   static listarProfessionals = async (req, res) => {
     try {
@@ -37,6 +43,40 @@ class ProfessionalController {
       }
     } catch (err) {
       res.status(501).send({ message: ` erro ao cadastrar professional` });
+    }
+  };
+
+  static loginProfessional = async (req, res) => {
+    try {
+      let professional = new professionals(req.body);
+      const { email, password } = req.body;
+      const user = await professionals.findOne({ email: email });
+      if (!user) {
+        res.status(404).json({ msg: "Usuário não encontrado!" });
+      } else {
+        const checkPassword = await bcrypt.compare(password, user.password);
+        console.log("password",password)
+        if (!checkPassword) {
+          res.status(422).json({ msg: "Senha inválida" });
+        } else {
+          const secret = process.env.SECRET;
+
+          const token = jwt.sign(
+            {
+              id: user._id,
+            },
+            secret
+          );
+
+          res
+            .status(200)
+            .json({ msg: "Autenticação realizada com sucesso!", token });
+        }
+        
+       
+      }
+    } catch (err) {
+      res.status(501).send({ message: ` Erro de autenticação` });
     }
   };
 
