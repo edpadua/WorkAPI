@@ -16,19 +16,25 @@ class ProfessionalController {
       const professional = await professionals.findById(id);
       res.status(200).send(professional);
     } catch (err) {
-      res
-        .status(400)
-        .send({
-          message: `${err.message} - Id do professional não localizado.`,
-        });
+      res.status(400).send({
+        message: `${err.message} - Id do professional não localizado.`,
+      });
     }
   };
 
   static cadastrarProfessional = async (req, res) => {
     try {
       let professional = new professionals(req.body);
-      await professional.save();
-      res.status(201).send(professional.toJSON());
+      const { email } = req.body;
+      const userExists = await professionals.findOne({ email: email });
+      if (userExists) {
+        return res
+          .status(422)
+          .json({ msg: "Por favor, utilize outro e-mail!" });
+      } else {
+        await professional.save();
+        res.status(201).send(professional.toJSON());
+      }
     } catch (err) {
       res.status(501).send({ message: ` erro ao cadastrar professional` });
     }

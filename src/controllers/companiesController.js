@@ -27,8 +27,18 @@ class CompanyController {
   static cadastrarCompany = async (req, res) => {
     try {
       let Company = new companies(req.body);
-      await Company.save();
+      const { email } = req.body;
+      const userExists = await companies.findOne({ email: email });
+     
       res.status(201).send(Company.toJSON());
+      if (userExists) {
+        return res
+          .status(422)
+          .json({ msg: "Por favor, utilize outro e-mail!" });
+      } else {
+        await Company.save();
+        res.status(201).send(companies.toJSON());
+      }
     } catch (err) {
       res.status(501).send({ message: ` erro ao cadastrar Company` });
     }
