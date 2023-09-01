@@ -12,7 +12,7 @@ db.once("open", () => {
   console.log('conexão com o banco feita com sucesso')
 })
 
-import cors from "cors";
+
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   next();
 })
 
-
+app.use(express.json());
 
 routes(app);
   
