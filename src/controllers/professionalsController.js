@@ -55,11 +55,12 @@ class ProfessionalController {
         res.status(404).json({ msg: "Usuário não encontrado!" });
       } else {
         const checkPassword = await bcrypt.compare(password, user.password);
-        console.log("password",password)
+     
         if (!checkPassword) {
           res.status(422).json({ msg: "Senha inválida" });
         } else {
           const secret = process.env.SECRET;
+          const name = user.name;
 
           const token = jwt.sign(
             {
@@ -67,10 +68,10 @@ class ProfessionalController {
             },
             secret
           );
-
+          
           res
             .status(200)
-            .json({ msg: "Autenticação realizada com sucesso!", token });
+            .json({ msg: "Autenticação realizada com sucesso!", token, email, name});
         }
         
        
