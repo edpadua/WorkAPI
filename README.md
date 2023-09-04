@@ -1,1 +1,3 @@
 # WorkAPI
+
+This project consists of an REST API ...
