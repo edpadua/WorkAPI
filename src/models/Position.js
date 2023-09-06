@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const positionSchema = new mongoose.Schema({
 
     id: {type: String},
+    id_company: {type: String, required: true},
     endereco: {type: String, required: true},
     departamento: {type: String, required: true},
     sala: {type: String, required: true},

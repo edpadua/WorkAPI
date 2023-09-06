@@ -30,23 +30,21 @@ class CompanyController {
     }
   };
 
-  static cadastrarCompany = async (req, res) => {
+  static cadastrarEmpresa = async (req, res) => {
     try {
-      let Company = new companies(req.body);
+      let company = new companies(req.body);
       const { email } = req.body;
       const userExists = await companies.findOne({ email: email });
-     
-      res.status(201).send(Company.toJSON());
       if (userExists) {
         return res
           .status(422)
           .json({ msg: "Por favor, utilize outro e-mail!" });
       } else {
-        await Company.save();
-        res.status(201).send(companies.toJSON());
+        await company.save();
+        res.status(201).send(company.toJSON());
       }
     } catch (err) {
-      res.status(501).send({ message: ` erro ao cadastrar Company` });
+      res.status(501).send({ message: ` erro ao cadastrar professional` });
     }
   };
 
@@ -67,6 +65,8 @@ class CompanyController {
           const secret = process.env.SECRET;
           const name = user.name;
           const type = "company"
+          const id = user._id;
+
 
           const token = jwt.sign(
             {
@@ -77,7 +77,7 @@ class CompanyController {
           
           res
             .status(200)
-            .json({ msg: "Autenticação realizada com sucesso!", token, email, name, type});
+            .json({ msg: "Autenticação realizada com sucesso!", token, email, name, type, id});
         }
         
        
