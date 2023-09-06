@@ -34,6 +34,8 @@ class PositionController {
     }
   };
 
+  
+
   static atualizarPosition = async (req, res) => {
     const id = req.params.id;
 

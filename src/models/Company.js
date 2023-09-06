@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+import uniqueValidator from 'mongoose-unique-validator';
+
+import bcrypt from 'bcryptjs';
+
 const companySchema = new mongoose.Schema({
 
     id: {type: String},
@@ -10,6 +14,23 @@ const companySchema = new mongoose.Schema({
     enderecos: [{type: String, required: true}],
     
 });
+
+
+companySchema.plugin(uniqueValidator);
+
+companySchema.pre('save', async function() {
+    return new Promise( async (resolve, reject) => {
+        await bcrypt.genSalt(10, async (err, salt) => {
+            await bcrypt.hash(this.password, salt, async (err, hash) => {
+                if(err) {
+                    reject (err)
+                } else {
+                    resolve (this.password = hash)
+                }
+            });
+        });
+    })
+})
 
 const companies = mongoose.model('companies', companySchema);
 

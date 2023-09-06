@@ -1,5 +1,11 @@
 import companies from "../models/Company.js";
 
+import jwt from "jsonwebtoken";
+
+import 'dotenv/config';
+
+import bcrypt from 'bcryptjs';
+
 class CompanyController {
   static listarCompanies = async (req, res) => {
     try {
@@ -41,6 +47,43 @@ class CompanyController {
       }
     } catch (err) {
       res.status(501).send({ message: ` erro ao cadastrar Company` });
+    }
+  };
+
+
+  static loginCompany = async (req, res) => {
+    try {
+      let company = new companies(req.body);
+      const { email, password } = req.body;
+      const user = await companies.findOne({ email: email });
+      if (!user) {
+        res.status(404).json({ msg: "Usuário não encontrado!" });
+      } else {
+        const checkPassword = await bcrypt.compare(password, user.password);
+     
+        if (!checkPassword) {
+          res.status(422).json({ msg: "Senha inválida" });
+        } else {
+          const secret = process.env.SECRET;
+          const name = user.name;
+          const type = "company"
+
+          const token = jwt.sign(
+            {
+              id: user._id,
+            },
+            secret
+          );
+          
+          res
+            .status(200)
+            .json({ msg: "Autenticação realizada com sucesso!", token, email, name, type});
+        }
+        
+       
+      }
+    } catch (err) {
+      res.status(501).send({ message: ` Erro de autenticação` });
     }
   };
 

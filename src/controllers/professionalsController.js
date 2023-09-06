@@ -61,6 +61,7 @@ class ProfessionalController {
         } else {
           const secret = process.env.SECRET;
           const name = user.name;
+          const type = "professional"
 
           const token = jwt.sign(
             {
@@ -71,7 +72,7 @@ class ProfessionalController {
           
           res
             .status(200)
-            .json({ msg: "Autenticação realizada com sucesso!", token, email, name});
+            .json({ msg: "Autenticação realizada com sucesso!", token, email, name, type});
         }
         
        
