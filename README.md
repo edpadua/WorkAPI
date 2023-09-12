@@ -15,8 +15,16 @@ Este projeto consiste em uma API REST
 
 ### Tecnologias
 
-- [NodeJS](https://reactjs.org)
-- [Express](https://vitejs.dev/guide/)
-- [MongoDB](https://github.com/axios/axios)
+- [NodeJS](https://nodejs.org/)
+- [Express](https://expressjs.com/pt-br/)
+- [MongoDB](https://cloud.mongodb.com/)
+## Setup
 
+```bash
+git clone https://github.com/edpadua/WorkAPI/
+
+cd workapi
+npm i
+npm run dev
+```
 
