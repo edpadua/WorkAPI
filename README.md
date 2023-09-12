@@ -14,6 +14,7 @@ Este projeto consiste em uma API REST com endpoints para as operações GET, POS
 
 ## Endpoints
 
+```bash
 GET https://localhost:3000/professionals
 
 GET https://localhost:3000/professionals/:id
@@ -48,6 +49,7 @@ PUT https://localhost:3000/positions/:id
 
 DELETE https://localhost:3000/positions/:id
 
+```
 ### Tecnologias
 
 - [NodeJS](https://nodejs.org/)
