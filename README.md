@@ -18,6 +18,8 @@ Este projeto consiste em uma API REST
 - [NodeJS](https://nodejs.org/)
 - [Express](https://expressjs.com/pt-br/)
 - [MongoDB](https://cloud.mongodb.com/)
+
+
 ## Setup
 
 ```bash
@@ -27,4 +29,13 @@ cd workapi
 npm i
 npm run dev
 ```
+
+## Licença
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+
+## Contato
+
+Eduardo de Pádua: ed.padua@gmail.com
 
